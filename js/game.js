@@ -1,3 +1,4 @@
+
 (() => {
   'use strict';
   const GRID=20, CELL=24, BASE_TICK=140;
@@ -24,7 +25,16 @@
   function resume(){if(state!=='paused')return;state='running';hideOverlay();statusEl.textContent='RUNNING';pauseButton.innerHTML='PAUSE <span>P</span>';mobilePauseButton.textContent='Ⅱ PAUSE';setTimer();}
   function hideOverlay(){overlay.classList.add('hidden')}
   function showOverlay(eyebrow,title,desc){overlay.classList.remove('hidden');eyebrowEl.textContent=eyebrow;titleEl.textContent=title;textEl.textContent=desc;modeButtons.classList.add('hidden');startButton.classList.add('hidden')}
-  function gameOver(){state='over';clearInterval(timer);showOverlay('RUN ENDED','Game over.',`Final score: ${score}. Press Space to try again.`);modeButtons.classList.add('hidden');startButton.classList.add('hidden');pauseButton.disabled=true;statusEl.textContent='GAME OVER';}
+  function gameOver(){
+    state='over';
+    clearInterval(timer);
+    showOverlay('RUN ENDED','Game over.',`Final score: ${score}. Tap below or press Space to try again.`);
+    modeButtons.classList.add('hidden');
+    startButton.classList.remove('hidden');
+    startButton.textContent='PLAY AGAIN';
+    pauseButton.disabled=true;
+    statusEl.textContent='GAME OVER';
+  }
   function levelAdvance(){state='levelComplete';clearInterval(timer);level++;levelScore=0;initSnake();food=spawnFood();updateHud();draw();showOverlay('LEVEL CLEARED',`Level ${level-1} complete!`,`Collect ${targetForLevel(level)} nodes to clear Level ${level}. Press Space to continue.`);startButton.classList.remove('hidden');startButton.textContent='CONTINUE';statusEl.textContent='LEVEL CLEAR';}
   function tick(){direction=queuedDirection;let head={x:snake[0].x+direction.x,y:snake[0].y+direction.y};const eating=head.x===food.x&&head.y===food.y;
     if(mode==='free'){head.x=(head.x+GRID)%GRID;head.y=(head.y+GRID)%GRID;}
