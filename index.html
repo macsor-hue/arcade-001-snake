@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#011627">
+  <meta name="description" content="ARCADE 001 — Snake. A responsive arcade game.">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <title>SNAKE — Arcade</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">S</span><div><p class="eyebrow">ARCADE / 001</p><h1>SNAKE</h1></div></div>
+      <div class="status"><span class="status-dot"></span><span id="game-status">MODE SELECT</span></div>
+    </header>
+    <section class="game-layout">
+      <div class="game-panel">
+        <div class="board-heading"><span>PLAYFIELD</span><span id="mode-label">SELECT MODE</span></div>
+        <div class="canvas-wrap">
+          <canvas id="game-canvas" width="480" height="480" aria-label="Snake game board"></canvas>
+          <div class="overlay" id="overlay">
+            <div class="overlay-card">
+              <p class="eyebrow" id="overlay-eyebrow">SELECT YOUR MODE</p>
+              <h2 id="overlay-title">Let's play.</h2>
+              <p id="overlay-text">Choose how you want to play.</p>
+              <div class="mode-buttons" id="mode-buttons">
+                <button class="primary-button mode-button" data-mode="free">FREE RUN <span>↗</span></button>
+                <button class="primary-button mode-button" data-mode="levels">LEVEL MODE <span>↗</span></button>
+              </div>
+              <button id="start-button" class="primary-button hidden">START <span>↗</span></button>
+            </div>
+          </div>
+        </div>
+        <button class="mobile-pause-button" id="mobile-pause-button" aria-label="Pause or resume game">Ⅱ PAUSE</button>
+        <div class="mobile-dpad" aria-label="Touch movement controls">
+          <button class="dpad-button dpad-up" data-dir="up" aria-label="Move up">▲</button>
+          <button class="dpad-button dpad-left" data-dir="left" aria-label="Move left">◀</button>
+          <button class="dpad-button dpad-center" aria-label="Directional pad center" disabled>•</button>
+          <button class="dpad-button dpad-right" data-dir="right" aria-label="Move right">▶</button>
+          <button class="dpad-button dpad-down" data-dir="down" aria-label="Move down">▼</button>
+        </div>
+        <div class="board-footer"><span>GRID <b>20 × 20</b></span><span>INPUT <b>WASD / ARROWS</b></span></div>
+      </div>
+      <aside class="side-panel">
+        <div class="score-card">
+          <p class="eyebrow">SCORE</p><div class="score" id="score">000</div>
+          <div class="score-divider"></div>
+          <div class="mini-stat"><span>PERSONAL BEST</span><strong id="high-score">000</strong></div>
+          <div class="mini-stat level-stat"><span>LEVEL</span><strong id="level">—</strong></div>
+          <div class="mini-stat level-stat"><span>LEVEL TARGET</span><strong id="target">—</strong></div>
+        </div>
+        <div class="info-card">
+          <p class="eyebrow">CONTROLS</p>
+          <div class="control-row"><span class="key">↑</span><span class="key">←</span><span class="key">↓</span><span class="key">→</span><span class="control-label">MOVE</span></div>
+          <div class="control-row"><span class="key wide">SPACE</span><span class="control-label">START</span></div>
+          <div class="control-row"><span class="key">P</span><span class="control-label">PAUSE / RESUME</span></div>
+        </div>
+        <div class="info-card objective"><p class="eyebrow">OBJECTIVE</p><p id="objective-text">Choose a mode to begin.</p></div>
+        <button class="secondary-button" id="pause-button" disabled>PAUSE <span>P</span></button>
+        <button class="secondary-button" id="menu-button">MAIN MENU <span>↺</span></button>
+      </aside>
+    </section>
+    <footer class="footer"><span>HTML / CSS / JAVASCRIPT</span><span>NO ENGINE. NO LIBRARIES.</span></footer>
+  </main>
+  <script src="js/game.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => navigator.serviceWorker.register('./service-worker.js').catch(err => console.warn('Service worker registration failed:', err)));
+    }
+  </script>
+</body>
+</html>
